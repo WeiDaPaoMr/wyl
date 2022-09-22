@@ -24,6 +24,8 @@ const request = (options) => {
         options.params = options.data || options.params
         delete options.data
     }
+
+    serverce.defaults.baseURL = options.proxy || process.env.VUE_APP_BASE_API
     serverce(options)
 }
 
