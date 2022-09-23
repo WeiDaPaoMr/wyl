@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { login } from "../../api/user";
 export default {
   name: "",
   components: {},
@@ -45,9 +46,16 @@ export default {
     handleLoginSubmit() {
       this.$refs["form"].validate((valid) => {
         if (!valid) return;
-        // 校验通过之后执行登录方法
         this.handleLogin();
       });
+    },
+    async handleLogin() {
+      try {
+        const response = await login(this.loginForm);
+        console.log(response);
+      } catch (e) {
+        console.log(e.message);
+      }
     },
   },
 };
