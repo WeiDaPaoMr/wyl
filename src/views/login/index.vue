@@ -13,6 +13,7 @@
         <el-form-item>
           <el-button type="primary" @click="handleLoginSubmit">登录</el-button>
         </el-form-item>
+        {{ this.$store.state.token }}
       </el-form>
     </div>
   </div>
@@ -53,6 +54,7 @@ export default {
       try {
         const response = await login(this.loginForm);
         console.log(response);
+        this.$store.dispatch("DIS_SET_TOKEN", response.token);
       } catch (e) {
         console.log(e.message);
       }
