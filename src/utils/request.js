@@ -1,5 +1,7 @@
 import axios from "axios"
 
+import store from "../store/index"
+
 const serverce = axios.create({
     baseURL: process.env.VUE_APP_SERVICE_URL,
     timeout: 5000
@@ -12,6 +14,8 @@ const errormessage = {
 }
 //请求拦截s
 serverce.interceptors.request.use(function (config) {
+    const token = store.getters.token
+    if (token) config.headers.authorization = "Bearer" + token
     return config;
 }, function (error) {
     return Promise.reject(error);

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { login } from "../../api/user";
+import { login, getUserInfo } from "../../api/user";
 export default {
   name: "",
   components: {},
@@ -48,6 +48,11 @@ export default {
       this.$refs["form"].validate((valid) => {
         if (!valid) return;
         this.handleLogin();
+        this.$router.push("/");
+        this.$message({
+          message: "登陆成功",
+          type: "success",
+        });
       });
     },
     async handleLogin() {
@@ -55,8 +60,12 @@ export default {
         const response = await login(this.loginForm);
         console.log(response);
         this.$store.dispatch("DIS_SET_TOKEN", response.token);
+
+        const userInfo = await getUserInfo();
+        console.log(userInfo);
       } catch (e) {
         console.log(e.message);
+        9;
       }
     },
   },
